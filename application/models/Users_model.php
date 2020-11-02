@@ -75,9 +75,6 @@ class Users_model extends CI_Model {
                     $this->db->update('users', $data); 
                     return true;
                 }else{
-                    $this->db->set('login_attempt', 'login_attempt+1', FALSE);
-                    $this->db->where('id_user', $row->id_user);
-                    $this->db->update('users'); 
                     return 3;
                 }
             }else{
@@ -97,29 +94,30 @@ class Users_model extends CI_Model {
         $this->db->trans_begin();
         $data = array();
 
-        if ($param['level'] == '3' || $param['level'] == '4') {
+        if ($param['level'] == '2' || $param['level'] == '3' || $param['level'] == '4') {
             $data = array(
-                'id_user'       =>  $param['email'],
-                'password'          =>  md5($param['password']),
-                'nama'          =>  $param['nama'],
-                'nik'           =>  $param['nik'],
-                'nip'           =>  $param['nip'],
+                'username'      =>  $param['username'],
+                'password'      =>  md5($param['password']),
+                'name'          =>  $param['name'],
+                'instansi'      =>  $param['instansi'],
+                'jabatan'       =>  $param['jabatan'],
                 'email'         =>  $param['email'],
                 'no_hp'         =>  $param['no_hp'],
-                'file'          =>  $param['file'],
                 'status'        =>  1,
                 'level'         =>  $param['level'],
-                'user_created'  =>  $param['username'],
+                'user_created'  =>  $param['user_id'],
                 'date_created'  =>  date("Y-m-d H:i:s")
             ); 
         }else{
             $data = array(
-                'id_user'           =>  $param['email'],
-                'user_created'      =>  $param['username'],
-                'password'          =>  md5($param['password']),
-                'status'            =>  1,
-                'level'             =>  $param['level'],
-                'date_created'      =>  date("Y-m-d H:i:s")
+                'username'      =>  $param['username'],
+                'password'      =>  md5($param['password']),
+                'name'          =>  $param['name'],
+                'no_hp'         =>  $param['no_hp'],
+                'status'        =>  1,
+                'level'         =>  $param['level'],
+                'user_created'  =>  $param['user_id'],
+                'date_created'  =>  date("Y-m-d H:i:s")
             );
         }
         // echo '<pre>';
@@ -134,8 +132,27 @@ class Users_model extends CI_Model {
         }
         else
         {
-            $this->db->trans_commit();
-            return true;
+            if ($param['level'] == '5') {
+                $data_petugas = array(
+                        'user_id'       =>  $this->db->insert_id(),
+                        'id_petugas'    =>  $param['id_petugas'],
+                        'nama_petugas'  =>  $param['name'],
+                        'no_hp_petugas' =>  $param['no_hp'],
+                        'spbu_id'       =>  $param['spbu_id']
+                );
+                
+                $this->db->insert('user_spbu',$data_petugas);
+                if ($this->db->trans_status() === FALSE || $this->db->affected_rows() === 0)
+                {
+                    $this->db->trans_rollback();
+                    return false;
+                }
+                else
+                {
+                    $this->db->trans_commit();
+                    return true;
+                }
+            }
         }
     }
 

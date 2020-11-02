@@ -28,6 +28,11 @@ class Apifunct {
         }
     }
 
+    function get_user_id($username){
+        $user = $this->CI->users_model->get_users(array('username' => $username))[0];
+        return $user->id_user;
+    }
+
     function check_token($username, $token){
         $user = $this->CI->users_model->get_users(array('username' => $username))[0];
         if ($user->token == $token) {

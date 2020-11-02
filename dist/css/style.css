@@ -8413,7 +8413,7 @@ html[dir="ltr"] body .p-l-0 {
   /*This is for the logo bg*/
   /*This is for the sidebar bg*/ }
   #main-wrapper[data-layout='vertical'] .topbar .top-navbar .navbar-header[data-logobg='skin1'], #main-wrapper[data-layout='horizontal'] .topbar .top-navbar .navbar-header[data-logobg='skin1'] {
-    background: #e3c268; }
+    background: #0E4B94; }
   #main-wrapper[data-layout='vertical'] .topbar .top-navbar .navbar-header[data-logobg='skin2'], #main-wrapper[data-layout='horizontal'] .topbar .top-navbar .navbar-header[data-logobg='skin2'] {
     background: #d83939; }
   #main-wrapper[data-layout='vertical'] .topbar .top-navbar .navbar-header[data-logobg='skin3'], #main-wrapper[data-layout='horizontal'] .topbar .top-navbar .navbar-header[data-logobg='skin3'] {
@@ -8435,7 +8435,7 @@ html[dir="ltr"] body .p-l-0 {
   #main-wrapper[data-layout='vertical'] .topbar .navbar-collapse[data-navbarbg='skin1'],
   #main-wrapper[data-layout='vertical'] .topbar[data-navbarbg='skin1'], #main-wrapper[data-layout='horizontal'] .topbar .navbar-collapse[data-navbarbg='skin1'],
   #main-wrapper[data-layout='horizontal'] .topbar[data-navbarbg='skin1'] {
-    background: #e3c268; }
+    background: #0E4B94; }
   #main-wrapper[data-layout='vertical'] .topbar .navbar-collapse[data-navbarbg='skin2'],
   #main-wrapper[data-layout='vertical'] .topbar[data-navbarbg='skin2'], #main-wrapper[data-layout='horizontal'] .topbar .navbar-collapse[data-navbarbg='skin2'],
   #main-wrapper[data-layout='horizontal'] .topbar[data-navbarbg='skin2'] {
@@ -8459,7 +8459,7 @@ html[dir="ltr"] body .p-l-0 {
   #main-wrapper[data-layout='vertical'] .left-sidebar[data-sidebarbg='skin1'],
   #main-wrapper[data-layout='vertical'] .left-sidebar[data-sidebarbg='skin1'] ul, #main-wrapper[data-layout='horizontal'] .left-sidebar[data-sidebarbg='skin1'],
   #main-wrapper[data-layout='horizontal'] .left-sidebar[data-sidebarbg='skin1'] ul {
-    background: #e3c268; }
+    background: #0E4B94; }
     #main-wrapper[data-layout='vertical'] .left-sidebar[data-sidebarbg='skin1'] .create-btn,
     #main-wrapper[data-layout='vertical'] .left-sidebar[data-sidebarbg='skin1'] ul .create-btn, #main-wrapper[data-layout='horizontal'] .left-sidebar[data-sidebarbg='skin1'] .create-btn,
     #main-wrapper[data-layout='horizontal'] .left-sidebar[data-sidebarbg='skin1'] ul .create-btn {
@@ -9820,7 +9820,7 @@ customizer
       height: 20px;
       display: block; }
       .theme-color .theme-item .theme-link[data-logobg="skin1"], .theme-color .theme-item .theme-link[data-navbarbg="skin1"], .theme-color .theme-item .theme-link[data-sidebarbg="skin1"] {
-        background: #e3c268; }
+        background: #0E4B94; }
       .theme-color .theme-item .theme-link[data-logobg="skin2"], .theme-color .theme-item .theme-link[data-navbarbg="skin2"], .theme-color .theme-item .theme-link[data-sidebarbg="skin2"] {
         background: #d83939; }
       .theme-color .theme-item .theme-link[data-logobg="skin3"], .theme-color .theme-item .theme-link[data-navbarbg="skin3"], .theme-color .theme-item .theme-link[data-sidebarbg="skin3"] {

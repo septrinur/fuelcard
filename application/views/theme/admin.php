@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="<?=base_url();?>assets/images/favicon.ico">
-    <title>Hagia Store</title>
+    <title>FuelCardQR</title>
     <!-- Custom CSS -->
     <link href="<?=base_url();?>assets/extra-libs/c3/c3.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -51,18 +51,9 @@
                     <!-- Logo -->
                     <!-- ============================================================== -->
                     <a class="navbar-brand" href="<?=base_url();?>product">
-                        <!-- Logo icon -->
-                        <b class="logo-icon">
-                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                            <!-- Dark Logo icon -->
-                            <img src="<?=base_url();?>assets/images/logo-hagia-circle.png" alt="homepage" class="dark-logo" width="37" height="37"/>
-                            <!-- Light Logo icon -->
-                            <img src="<?=base_url();?>assets/images/logo-hagia-circle.png" alt="homepage" class="light-logo"  width="37" height="37"/>
-                        </b>
-                        <!--End Logo icon -->
                         <!-- Logo text -->
                         <span class="logo-text">
-                            <b>Hagia Store</b>
+                            <b>FuelCard QR Admin</b>
                         </span>
                     </a>
                     <!-- ============================================================== -->
@@ -105,16 +96,19 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-Car-Wheel"></i><span class="hide-menu">Check Stock </span></a>
+
+                        <li class="sidebar-item"> <a class="sidebar-link" href="<?=base_url();?>admin/index"><i class="icon-Car-Wheel"></i><span class="hide-menu">Dashboard </span></a>
+                        </li><li class="sidebar-item"> <a class="sidebar-link" href="<?=base_url();?>admin/index"><i class="icon-User"></i><span class="hide-menu">User</span></a>
+                        </li>
+                        </li><li class="sidebar-item"> <a class="sidebar-link" href="<?=base_url();?>admin/index"><i class="fas fa-qrcode"></i><span class="hide-menu">Data QR </span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-User"></i><span class="hide-menu">User Aplikasi</span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="<?=base_url();?>product/tokped" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> Tokopedia </span></a></li>
-                                <li class="sidebar-item"><a href="<?=base_url();?>product/shopee" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> Shopee</span></a></li>
+                                <li class="sidebar-item"><a href="<?=base_url();?>user/index" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> List User Aplikasi </span></a></li>
+                                <li class="sidebar-item"><a href="<?=base_url();?>user/index" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> List SPBU</span></a></li>
                             </ul>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-Car-Wheel"></i><span class="hide-menu">Setting </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="<?=base_url();?>setting" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> Price </span></a></li>
-                            </ul>
+                        <li class="sidebar-item"> <a class="sidebar-link" href="<?=base_url();?>user/logout"><i class="fas fa-sign-out-alt"></i><span class="hide-menu">Logout </span></a>
                         </li>
                     </ul>
                 </nav>
@@ -148,7 +142,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">
-                   All Rights Reserved by Xtreme admin. Designed and Developed by <a href="https://wrappixel.com">WrapPixel</a>.
+                   All Rights Reserved 2020</a>.
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

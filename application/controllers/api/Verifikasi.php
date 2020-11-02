@@ -34,52 +34,201 @@ class Verifikasi extends REST_Controller {
 
         ini_set('display_errors', 1);
 
+        date_default_timezone_set('Asia/Jakarta');
+
         $this->time_now = date('H:i:s');
 
     }
 
    
     public function add_post(){
-        $config['upload_path']          = './uploads/';
-        $config['allowed_types']        = '*';
-        $config['max_size']             = 53083730;
-        $config['max_width']            = 10240;
-        $config['max_height']           = 10240;
-
-        $this->load->library('upload', $config);
-
-        // echo json_encode($_FILES['file']);exit();
-
-        if ( ! $this->upload->do_upload('nopolimage'))
-        {
-
-            $this->set_response([
-                'status'    => true,
-                'code'      => '00',
-                'desc'      => $this->upload->display_errors(),
-                'data'      => $this->upload->display_errors()
-                ], REST_Controller::HTTP_UNAUTHORIZED);
+        $function = "verifikasi_add";
+        if (array_key_exists(0, $this->post())) {
+            $param = (array)json_decode($this->post()[0]);
+        }else{
+            $param = $this->post();
         }
-        else
-        {
-            if ( ! $this->upload->do_upload('nokartuimage'))
-            {
+        
 
-                $this->set_response([
-                    'status'    => true,
-                    'code'      => '00',
-                    'desc'      => $this->upload->display_errors(),
-                    'data'      => $this->upload->display_errors()
+        // $headers = apache_request_headers();
+        // if(isset($headers['Authorization'])){
+        //     $matches = array('Token 12345');
+        //     preg_match('/Token (.*)/', $headers['Authorization'], $matches);
+        //     // print_r($matches);exit();
+        //     if(isset($matches[1])){
+        //       $token = $matches[1];
+        //     }else{
+        //         $this->set_response([
+        //             'status'    => false,
+        //             'code'      => '02',
+        //             'desc'      => 'Token Not Found',
+        //             'data'      => $this->post()
+        //         ], REST_Controller::HTTP_UNAUTHORIZED);
+        //     }
+        // }else{
+        //     $this->set_response([
+        //         'status'    => false,
+        //         'code'      => '01',
+        //         'desc'      => 'No Authorization',
+        //         'data'      => $this->post()
+        //     ], REST_Controller::HTTP_UNAUTHORIZED);
+        // } 
+
+        if (!array_key_exists('username', $param) || $param['username'] ===NULL || empty($param['username'])) {
+            $this->set_response([
+                'status'    => false,
+                'code'      => '03',
+                'desc'      => 'Username Kosong',
+                'data'      => $this->post()
+            ], REST_Controller::HTTP_BAD_REQUEST);
+        }elseif (!$this->apifunct->check_user($param['username'])) {
+            $this->set_response([
+                'status'    => false,
+                'code'      => '96',
+                'desc'      => 'Invalid Username',
+                'data'      =>  $this->post()
+                ], REST_Controller::HTTP_BAD_REQUEST);
+        }else{
+            // if ($this->apifunct->check_token($param['username'],$token)) {
+            //     $this->set_response([
+            //         'status'    => false,
+            //         'code'      => '97',
+            //         'desc'      => 'Invalid Token',
+            //         'data'      =>  $this->post()
+            //         ], REST_Controller::HTTP_UNAUTHORIZED);
+            // }
+            $config['upload_path']          = './uploads/';
+            $config['allowed_types']        = '*';
+            $config['max_size']             = 53083730;
+            $config['max_width']            = 10240;
+            $config['max_height']           = 10240;
+
+            $this->load->library('upload', $config);
+
+            // echo json_encode($_FILES['file']);exit();
+
+            if ( ! $this->upload->do_upload('nopolimage'))
+            {
+                 $this->set_response([
+                    'status'    => false,
+                    'code'      => '99',
+                    'desc'      => 'Gagal Menyimpan Data, Mohon Dicoba Lagi',
+                    'data'      => $this->post()
                     ], REST_Controller::HTTP_UNAUTHORIZED);
+
             }
             else
             {
+                $image = $this->upload->data();
+                $param_save['user_id'] = $this->apifunct->get_user_id($param['username']);
+                $param_save['no_kartu'] = $param['no_kartu'];
+                $param_save['no_polisi'] = $param['no_polisi'];
+                $param_save['foto'] = 'uploads/'.$image['file_name'];
+                $param_save['status'] = 1;
+                $param_save['trx_date'] = date("Y-m-d H:i:s");
+
+
+                $save = $this->general_model->insert_data('verifikasi',$param_save);
+
+                if ($save) {
                     $this->set_response([
                     'status'    => true,
                     'code'      => '00',
-                    'desc'      => '',
-                    'data'      => ''
+                    'desc'      => 'Success',
+                    'data'      => $param
                     ], REST_Controller::HTTP_OK);
+                }else{
+                    $this->set_response([
+                    'status'    => false,
+                    'code'      => '99',
+                    'desc'      => 'Gagal Menyimpan Data, Mohon Dicoba Lagi',
+                    'data'      => $this->post()
+                    ], REST_Controller::HTTP_UNAUTHORIZED);
+                }
+            }
+        }
+    }
+
+    public function failed_post(){
+        $function = "verifikasi_failed";
+        if (array_key_exists(0, $this->post())) {
+            $param = (array)json_decode($this->post()[0]);
+        }else{
+            $param = $this->post();
+        }
+        
+
+        // $headers = apache_request_headers();
+        // if(isset($headers['Authorization'])){
+        //     $matches = array('Token 12345');
+        //     preg_match('/Token (.*)/', $headers['Authorization'], $matches);
+        //     // print_r($matches);exit();
+        //     if(isset($matches[1])){
+        //       $token = $matches[1];
+        //     }else{
+        //         $this->set_response([
+        //             'status'    => false,
+        //             'code'      => '02',
+        //             'desc'      => 'Token Not Found',
+        //             'data'      => $this->post()
+        //         ], REST_Controller::HTTP_UNAUTHORIZED);
+        //     }
+        // }else{
+        //     $this->set_response([
+        //         'status'    => false,
+        //         'code'      => '01',
+        //         'desc'      => 'No Authorization',
+        //         'data'      => $this->post()
+        //     ], REST_Controller::HTTP_UNAUTHORIZED);
+        // } 
+
+        if (!array_key_exists('username', $param) || $param['username'] ===NULL || empty($param['username'])) {
+            $this->set_response([
+                'status'    => false,
+                'code'      => '03',
+                'desc'      => 'Username Kosong',
+                'data'      => $this->post()
+            ], REST_Controller::HTTP_BAD_REQUEST);
+        }elseif (!$this->apifunct->check_user($param['username'])) {
+            $this->set_response([
+                'status'    => false,
+                'code'      => '96',
+                'desc'      => 'Invalid Username',
+                'data'      =>  $this->post()
+                ], REST_Controller::HTTP_BAD_REQUEST);
+        }else{
+            // if ($this->apifunct->check_token($param['username'],$token)) {
+            //     $this->set_response([
+            //         'status'    => false,
+            //         'code'      => '97',
+            //         'desc'      => 'Invalid Token',
+            //         'data'      =>  $this->post()
+            //         ], REST_Controller::HTTP_UNAUTHORIZED);
+            // }
+
+            $param_save['user_id'] = $this->apifunct->get_user_id($param['username']);
+            $param_save['no_kartu'] = $param['no_kartu'];
+            $param_save['no_polisi'] = $param['no_polisi'];
+            $param_save['reason_failed'] = $param['reason'];
+            $param_save['status'] = 0;
+            $param_save['trx_date'] = date("Y-m-d H:i:s");
+
+            $save = $this->general_model->insert_data('verifikasi',$param_save);
+
+            if ($save) {
+                $this->set_response([
+                'status'    => true,
+                'code'      => '00',
+                'desc'      => 'Success',
+                'data'      => $param
+                ], REST_Controller::HTTP_OK);
+            }else{
+                $this->set_response([
+                'status'    => false,
+                'code'      => '99',
+                'desc'      => 'Gagal Menyimpan Data, Mohon Dicoba Lagi',
+                'data'      => $this->post()
+                ], REST_Controller::HTTP_UNAUTHORIZED);
             }
         }
     }
