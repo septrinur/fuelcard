@@ -30,7 +30,7 @@ class Home extends CI_Controller {
 	        }
 	        $param['username'] = str_replace(' ', '', $param['username']);
             $param['password'] = str_replace(' ', '', $param['password']);
-            $user = $this->users_model->login_app($param);
+            $user = $this->users_model->login($param);
 
             if ($user == 1) {
             	redirect('admin/index');

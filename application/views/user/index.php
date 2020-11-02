@@ -3,27 +3,27 @@
 	<div class="col-lg-12">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">Data Generate QR</h4>
+				<h4 class="card-title">Data Pengguna</h4>
                 <h6 class="card-subtitle"></h6>
                 <center>
-                	<?php if ($this->session->flashdata('data_success') != null) { ?>
+                	<?php if ($this->session->flashdata('user_success') != null) { ?>
                 		<div class="alert alert-success">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
                             <h3 class="text-success"><i class="fa fa-check-circle"></i> Berhasil</h3> 
-                            <?php echo $this->session->flashdata('data_success'); ?>
+                            <?php echo $this->session->flashdata('user_success'); ?>
                         </div>
                 	<?php } ?>
                 </center>
                 <center>
-                	<?php if ($this->session->flashdata('data_failed') != null) { ?>
+                	<?php if ($this->session->flashdata('user_failed') != null) { ?>
                 		<div class="alert alert-danger">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
                             <h3 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Terjadi Kesalahan</h3> 
-                            <?php echo $this->session->flashdata('data_failed'); ?>
+                            <?php echo $this->session->flashdata('user_failed'); ?>
                         </div>
                 	<?php } ?>
                 </center>
-                <a href="<?=base_url();?>admin/input"><button type="button" class="btn btn-info btn-rounded m-t-10 mb-2 float-right">Input Data Baru</button></a>
+                <a href="<?=base_url();?>user/add"><button type="button" class="btn btn-info btn-rounded m-t-10 mb-2 float-right">Input Data Baru</button></a>
 				<div class="row">
 					<div class="col-sm-12 col-lg-3">
 						<form>
@@ -41,12 +41,13 @@
 						<thead>
 							<tr>
 								<th>No</th>
-								<th>Nama Pemilik</th>
-								<th>No Polisi</th>
-								<th>Kuota BBM</th>
-								<th>Jenis Kendaraan</th>
-								<th>No Brizzi</th>
-								<th>Dokumen</th>
+								<th>Username</th>
+								<th>Nama</th>
+								<th>Instansi</th>
+								<th>Jabatan</th>
+								<th>No HP</th>
+								<th>Email</th>
+								<th>Level</th>
 								<th>Status</th>
 								<th>Aksi</th>
 							</tr>
@@ -54,33 +55,53 @@
 						<tbody>
 							<?php 
 							$no = 1;
-							if (!empty($dataqrs)): ?>
-							<?php foreach($dataqrs as $data) : 
-								$base64 = $this->encryption->encrypt($data->id_qr);
+							if (!empty($users)): ?>
+							<?php foreach($users as $user) : 
+								$base64 = $this->encryption->encrypt($user->id_user);
 								$urisafe = strtr($base64, '+/=', '.-~');
 							?>
 							<tr>
 								<td><?=$no?></td>
-								<td><?=$data->nama_pemilik?></td>
-								<td><?=$data->no_pol?></td>
-								<td><?=$data->kuota_bbm?></td>
-								<td><?=$data->jenis_kendaraan?></td>
-								<td><?=$data->no_kartu?></td>
-								<td><?=$data->dokumen?></td>
+								<td><?=$user->username?></td>
+								<td><?=$user->name?></td>
+								<td><?=$user->instansi?></td>
+								<td><?=$user->jabatan?></td>
+								<td><?=$user->no_hp?></td>
+								<td><?=$user->email?></td>
 								<td>
-									<?php if ($data->status_approve == 1) { ?>
-										<label class="label label-success">Approved</label>
+									<?php switch ($user->level) {
+										case '1':
+											echo "Super Admin";
+											break;
+										case '2':
+											echo "Admin QR";
+											break;
+										case '3':
+											echo "Maker QR";
+											break;
+										case '4':
+											echo "Admin App";
+											break;
+										default:
+											echo "Unknown";
+											break;
+									} ?>
+								</td>
+								<td>
+									<?php if ($user->status == 1) { ?>
+										<label class="label label-success">Aktif</label>
 									<?php }else{ ?>
-										<label class="label label-danger">Menunggu Approval</label>
+										<label class="label label-danger">Block</label>
 									<?php } ?>
 								</td>
 								<td>
-									<a class="btn btn-success" href="<?=base_url('admin/update/'.$urisafe);?>">
+									<a class="btn btn-success" href="<?=base_url('user/update/'.$urisafe);?>">
 										<i class="ti-pencil-alt"></i> Edit                                        
 									</a>
-									<a class="btn btn-warning" href="<?=base_url('admin/print_qr/'.$urisafe);?>" target="_blank">
-										<i class="ti-printer"></i> Print                                        
-									</a>
+									<a class="btn btn-danger" href="<?=base_url('user/delete/'.$urisafe);?>" onclick="return confirm('Apakah Anda yakin menghapus data ini?')">
+											<i class="ti-trash"></i> 
+											Hapus
+										</a>
 								</td>
 							</tr>
 							<?php 

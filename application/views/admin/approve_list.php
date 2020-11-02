@@ -75,12 +75,10 @@
 									<?php } ?>
 								</td>
 								<td>
-									<a class="btn btn-success" href="<?=base_url('admin/update/'.$urisafe);?>">
-										<i class="ti-pencil-alt"></i> Edit                                        
-									</a>
-									<a class="btn btn-warning" href="<?=base_url('admin/print_qr/'.$urisafe);?>" target="_blank">
-										<i class="ti-printer"></i> Print                                        
-									</a>
+									<a class="btn btn-success" href="<?=base_url('admin/approve/'.$urisafe);?>" onclick="return confirm('Apakah Anda yakin approve data ini?')">
+											<i class="ti-check-box"></i> 
+											Approve
+										</a>
 								</td>
 							</tr>
 							<?php 

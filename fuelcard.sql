@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 02, 2020 at 02:05 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.34
+-- Host: 127.0.0.1
+-- Generation Time: Nov 02, 2020 at 07:28 AM
+-- Server version: 10.3.16-MariaDB
+-- PHP Version: 7.3.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -30,17 +31,25 @@ SET time_zone = "+00:00";
 CREATE TABLE `data_qr` (
   `id_qr` int(11) NOT NULL,
   `nama_pemilik` varchar(150) NOT NULL,
-  `no_pol` int(20) NOT NULL,
+  `no_pol` varchar(20) NOT NULL,
   `kuota_bbm` int(11) NOT NULL,
   `jenis_kendaraan` varchar(100) NOT NULL,
   `no_kartu` varchar(16) NOT NULL,
   `dokumen` varchar(255) NOT NULL,
+  `qr_image` varchar(255) NOT NULL,
   `status_approve` tinyint(4) NOT NULL DEFAULT 0,
   `date_created` datetime NOT NULL DEFAULT current_timestamp(),
   `user_created` int(11) NOT NULL,
-  `date_approved` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_approved` datetime DEFAULT NULL,
   `user_approved` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `data_qr`
+--
+
+INSERT INTO `data_qr` (`id_qr`, `nama_pemilik`, `no_pol`, `kuota_bbm`, `jenis_kendaraan`, `no_kartu`, `dokumen`, `qr_image`, `status_approve`, `date_created`, `user_created`, `date_approved`, `user_approved`) VALUES
+(3, 'Septri', 'B1157WZK', 140, 'Mobil', '1234', '', '/assets/images/qr/de22dde9b9014385aef709e35bad4a389fb7fff2a3b1aaaa4dcb710fbc6807f742afca1a9329c7d60443c27e6201d54d69c5670df5b08f838d70ea79dbdb9694nSD57kXEkrIoQP6o5veC4XYWyqzGW3YFSmQmL4qld5Y~.png', 1, '2020-11-02 13:06:47', 1, '2020-11-02 13:27:23', 1);
 
 -- --------------------------------------------------------
 
@@ -54,6 +63,13 @@ CREATE TABLE `spbu` (
   `nama_spbu` varchar(100) NOT NULL,
   `wilayah` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `spbu`
+--
+
+INSERT INTO `spbu` (`id_spbu`, `no_spbu`, `nama_spbu`, `wilayah`) VALUES
+(2, '123', 'SPBU A', 'Jakarta Selatan');
 
 -- --------------------------------------------------------
 
@@ -70,6 +86,7 @@ CREATE TABLE `users` (
   `jabatan` varchar(100) DEFAULT NULL,
   `no_hp` varchar(20) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
+  `spbu_id` int(11) NOT NULL,
   `level` int(11) NOT NULL DEFAULT 1,
   `status` int(11) NOT NULL DEFAULT 1,
   `token` varchar(255) NOT NULL,
@@ -83,8 +100,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_user`, `username`, `password`, `name`, `instansi`, `jabatan`, `no_hp`, `email`, `level`, `status`, `token`, `last_login`, `login_attempt`, `user_created`, `date_created`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Admin', NULL, NULL, NULL, NULL, 1, 1, '12312312312312', '2020-10-29 12:43:28', 0, 0, '2020-10-29 13:18:34');
+INSERT INTO `users` (`id_user`, `username`, `password`, `name`, `instansi`, `jabatan`, `no_hp`, `email`, `spbu_id`, `level`, `status`, `token`, `last_login`, `login_attempt`, `user_created`, `date_created`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Admin', NULL, NULL, NULL, NULL, 0, 1, 1, '12312312312312', '2020-11-02 08:27:30', 0, 0, '2020-10-29 13:18:34'),
+(9, 'adminqr', '1f1a7bcd1b09244b46f566fd71912c6f', 'Admin QR', 'BRI', 'manager', '0928292891', 'admin@amin', 0, 2, 1, 'b24fe12272e49b274c5d047a110b441c851401fa', NULL, 0, 1, '2020-11-02 10:26:44'),
+(10, 'user1', '24c9e15e52afc47c225b757e7bee1f9d', 'User 1', NULL, NULL, '0123123123123', NULL, 2, 5, 1, '96de7c7c23c5f8967b6d8d4233cf1f8ae7ab8fcc', NULL, 0, 1, '2020-11-02 12:06:01');
 
 -- --------------------------------------------------------
 
@@ -171,19 +190,19 @@ ALTER TABLE `verifikasi`
 -- AUTO_INCREMENT for table `data_qr`
 --
 ALTER TABLE `data_qr`
-  MODIFY `id_qr` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_qr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `spbu`
 --
 ALTER TABLE `spbu`
-  MODIFY `id_spbu` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_spbu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user_spbu`
