@@ -62,7 +62,7 @@
 								<td><?=$data->failed_scan?></td>
 								<td><?=$data->total_scan?></td>
 								<td>
-									<a class="btn btn-success" href="<?=base_url('admin/detail/'.$data->id_spbu);?>">
+									<a class="btn btn-success" href="<?=base_url('admin/detail?id='.$data->id_spbu);?>">
 										Detail                                        
 									</a>
 								</td>

@@ -68,8 +68,9 @@ class Admin extends CI_Controller {
         $this->load->admin('admin/index', $data);
 	}
 
-    public function detail($id)
+    public function detail()
     {
+        $id = $_GET['id'];
         $config['base_url'] = site_url('admin/detail'); //site url
         $config['total_rows'] = $this->db->count_all('spbu'); //total row
         $config['per_page'] = 10;  //show record per halaman
