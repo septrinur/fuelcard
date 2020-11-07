@@ -3,7 +3,7 @@
 	<div class="col-lg-12">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">Data Generate QR</h4>
+				<h4 class="card-title">Data Verifikasi QR</h4>
                 <h6 class="card-subtitle"></h6>
                 <center>
                 	<?php if ($this->session->flashdata('data_success') != null) { ?>
@@ -23,7 +23,6 @@
                         </div>
                 	<?php } ?>
                 </center>
-                <a href="<?=base_url();?>admin/input"><button type="button" class="btn btn-info btn-rounded m-t-10 mb-2 float-right">Input Data Baru</button></a>
 				<div class="row">
 					<div class="col-sm-12 col-lg-3">
 						<form>
@@ -37,51 +36,38 @@
 	                </div>
 			    </div>
 				<div class="table-responsive">
-					<table class="table">
+					<table class="table v-middle">
 						<thead>
-							<tr>
-								<th>Kode</th>
-								<th>Nama Pemilik</th>
-								<th>No Polisi</th>
-								<th>Kuota BBM</th>
-								<th>Jenis Kendaraan</th>
-								<th>No Brizzi</th>
-								<th>Dokumen</th>
+							<tr class="bg-light">
+								<th>No</th>
+								<th>Nama SPBU</th>
+								<th>Nama Petugas</th>
+								<th>No BRIZZI</th>
+								<th>No Pol</th>
+								<th>Foto</th>
+								<th>Kuota</th>
+								<th>Tgl Transaksi</th>
 								<th>Status</th>
-								<th>Aksi</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php 
 							$no = 1;
-							if (!empty($dataqrs)): ?>
-							<?php foreach($dataqrs as $data) : 
-								$base64 = $this->encryption->encrypt($data->id_qr);
+							if (!empty($spbu)): ?>
+							<?php foreach($spbu as $data) : 
+								$base64 = $this->encryption->encrypt($data->id_spbu);
 								$urisafe = strtr($base64, '+/=', '.-~');
 							?>
 							<tr>
-								<td><?=$data->code?></td>
-								<td><?=$data->nama_pemilik?></td>
-								<td><?=$data->no_pol?></td>
-								<td><?=$data->kuota_bbm?></td>
-								<td><?=$data->jenis_kendaraan?></td>
-								<td><?=$data->no_kartu?></td>
-								<td><?=$data->dokumen?></td>
-								<td>
-									<?php if ($data->status_approve == 1) { ?>
-										<label class="label label-success">Approved</label>
-									<?php }else{ ?>
-										<label class="label label-danger">Menunggu Approval</label>
-									<?php } ?>
-								</td>
-								<td>
-									<a class="btn btn-success" href="<?=base_url('admin/update/'.$urisafe);?>">
-										<i class="ti-pencil-alt"></i> Edit                                        
-									</a>
-									<a class="btn btn-warning" href="<?=base_url('admin/print_qr/'.$urisafe);?>" target="_blank">
-										<i class="ti-printer"></i> Print                                        
-									</a>
-								</td>
+								<td><?=$no?></td>
+								<td><?=$data->nama_spbu?></td>
+								<td><?=$data->name?></td>
+								<td><?=$data->kartu?></td>
+								<td><?=$data->nopol?></td>
+								<td><?=$data->image?></td>
+								<td></td>
+								<td><?=$data->trxdate?></td>
+								<td><?=$data->stat?></td>
 							</tr>
 							<?php 
 							$no++;

@@ -13,8 +13,10 @@
         background-color: #FFFFFF; 
         margin: 0px;  /* this affects the margin on the html before sending to printer */
     }
+    body { margin: 1cm; }
     </style>
 </head>
-<body onload="window.print()">
-	<img src="<?=base_url().$param['qr_image'];?>" alt="Italian Trulli">
+<body onload="window.print()" style="width: 200px; height: 220px; overflow: hidden; border: solid;">
+	<center><span style="margin-top: 10px;"><?=$param['code']?></span></center>
+	<img src="<?=base_url().$param['qr_image'];?>" alt="Italian Trulli" width="200" height="200">
 </body>

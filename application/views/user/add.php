@@ -130,7 +130,6 @@
                 <div class="card-body">
                     <div class="form-group m-b-0 text-right">
                         <button type="submit" class="btn btn-info waves-effect waves-light">Save</button>
-                        <button type="submit" class="btn btn-dark waves-effect waves-light">Cancel</button>
                     </div>
                 </div>
             </form>
