@@ -102,8 +102,8 @@ class Admin extends CI_Controller {
  
         $data['pagination'] = $this->pagination->create_links();
 
-        $base64 = strtr($id, '.-~', '+/=');
-        $id = $this->encryption->decrypt($base64);
+        // $base64 = strtr($id, '.-~', '+/=');
+        // $id = $this->encryption->decrypt($base64);
         $filter = array('id_spbu' => $id);
         $spbu = $this->admin_model->get_data_detail($filter,$config["per_page"],$data['page']);
 
