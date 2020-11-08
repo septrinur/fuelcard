@@ -4,7 +4,7 @@
 function get_kuota($nopol, $nokartu){
 	$CI =& get_instance();
     $CI->load->model('general_model');
-	$sql = "select kuota_bbm from data_qr where no_pol =".$nopol." OR no_kartu=".$nokartu;
+	$sql = "select kuota_bbm from data_qr where no_pol ='".$nopol."'' OR no_kartu='".$nokartu."'";
 	$dataqr = $CI->general_model->get_query($sql);
 	if (empty($dataqr)) {
 		$data = "-";
