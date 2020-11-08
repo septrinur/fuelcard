@@ -64,7 +64,12 @@
 								<td><?=$data->name?></td>
 								<td><?=$data->kartu?></td>
 								<td><?=$data->nopol?></td>
-								<td><?=$data->image?></td>
+								<td>
+									<?php if ($data->image==null || empty($data->image)) {  ?>
+										-
+									<?php }else{ ?>
+										<img src="<?=base_url().$data->image?>" width="150"></td>
+									<?php } ?>
 								<td></td>
 								<td><?=$data->trxdate?></td>
 								<td><?=$data->stat?></td>
