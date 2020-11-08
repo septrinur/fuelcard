@@ -132,4 +132,13 @@ class General_model extends CI_Model {
             return true;
         }
     }
+
+    function get_query($sql){  
+        $query = $this->db->query($sql);
+
+        $data = $query->result_array();
+        // echo "<pre>";
+        // print_r($data);
+        return $data;
+    }
 }

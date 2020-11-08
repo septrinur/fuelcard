@@ -23,6 +23,7 @@
                         </div>
                 	<?php } ?>
                 </center>
+                <a href="<?=base_url('admin/export?id='.$id);?>"><button type="button" class="btn btn-success btn-rounded m-t-10 mb-2 float-right">Download</button></a>
 				<div class="row">
 					<div class="col-sm-12 col-lg-3">
 						<form>
@@ -68,11 +69,17 @@
 									<?php if ($data->image==null || empty($data->image)) {  ?>
 										-
 									<?php }else{ ?>
-										<img src="<?=base_url().$data->image?>" width="150"></td>
+										<img src="<?=base_url().$data->image?>" width="150">
 									<?php } ?>
-								<td></td>
-								<td><?=$data->trxdate?></td>
-								<td><?=$data->stat?></td>
+								</td>
+								<td><?=get_kuota($data->nopol,$data->kartu)?></td>
+								<td><?=tanggal_indo($data->trxdate)?></td>
+								<td>
+									<?php if ($data->stat == 1) { ?>
+										<label class="label label-success">Berhasil</label>
+									<?php }else{ ?>
+										<label class="label label-danger">Gagal</label>
+									<?php } ?>
 							</tr>
 							<?php 
 							$no++;

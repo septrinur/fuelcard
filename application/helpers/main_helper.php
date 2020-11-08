@@ -1,6 +1,19 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 
+function get_kuota($nopol, $nokartu){
+	$CI =& get_instance();
+    $CI->load->model('general_model');
+	$sql = "select kuota_bbm from data_qr where no_pol =".$nopol." OR no_kartu=".$nokartu;
+	$dataqr = $CI->general_model->get_query($sql);
+	if (empty($dataqr)) {
+		$data = "-";
+	}else{
+		$data = $dataqr[0]['kuota_bbm'];
+	}
+	return $data;
+}
+
 function tgl_service($tanggal){
 	$dt = new DateTime($tanggal);
 
@@ -11,10 +24,11 @@ function tanggal_indo($tanggal){
 	$dt = new DateTime($tanggal);
 
 	$date = $dt->format('d/m/Y'); 
+	$time = $dt->format('H:i:s'); 
 
 	$tgl = explode('/', $date);
 
-	return $tgl[0].' '.bulan($tgl[1]).' '.$tgl[2];
+	return $tgl[0].' '.bulan($tgl[1]).' '.$tgl[2].' '.$time;
 
 }
 

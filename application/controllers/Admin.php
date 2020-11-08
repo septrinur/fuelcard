@@ -109,11 +109,27 @@ class Admin extends CI_Controller {
         $spbu = $this->admin_model->get_data_detail($filter,$config["per_page"],$data['page']);
 
         $data['spbu'] = $spbu;
+        $data['id'] = $id;
         
         // echo "<pre>";
         // print_r($data);
         // exit();
         $this->load->admin('admin/detail', $data);
+    }
+
+    public function export()
+    {
+        $id = $_GET['id'];
+        $filter = array('id_spbu' => $id);
+        $spbu = $this->admin_model->get_data_detail($filter);
+
+        $data['spbu'] = $spbu;
+        $data['name'] = "Data Verifikasi Fuelcard";
+        
+        // echo "<pre>";
+        // print_r($data);
+        // exit();
+        $this->load->excel('admin/export', $data);
     }
 
 	public function data()
