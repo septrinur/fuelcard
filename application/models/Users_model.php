@@ -120,6 +120,7 @@ class Users_model extends CI_Model {
                 
                 if ($row->status == 1) {
                     $this->session->set_userdata('is_login',TRUE);
+                    $this->session->set_userdata('level',$row->level);
                     $this->session->set_userdata('user_id',$row->id_user);
                     $this->session->set_userdata('token',$row->token);
                     $this->session->set_userdata('username',$row->username);
