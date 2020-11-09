@@ -50,4 +50,8 @@ class Home extends CI_Controller {
 		$this->load->view('home/index', $data);
 	}
 
+    public function privacy_policy(){
+        $this->load->view('home/privacy');
+    }
+
 }
