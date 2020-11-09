@@ -62,7 +62,7 @@ function bulan($month){
 			return 'September';
 			break;		
 		case '10':
-			return 'Okteober';
+			return 'Oktober';
 			break;		
 		case '11':
 			return 'November';
