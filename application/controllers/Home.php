@@ -13,13 +13,13 @@ class Home extends CI_Controller {
         $this->load->library('apifunct');
 
         ini_set('display_errors', 1);
-        if ($this->session->userdata('is_login')) {
-        	redirect('admin/index');
-        }
 
     }
 	public function index()
 	{
+        if ($this->session->userdata('is_login')) {
+            redirect('admin/index');
+        }
 		
 		// echo "<pre>";
 		// print_r($this->session->userdata());
