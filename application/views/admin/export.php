@@ -1,5 +1,10 @@
 
-<h4 class="card-title">Data Verifikasi QR</h4>
+<?php if (isset($periode)) {
+	$period= 'Periode Bulan '.bulan($periode);
+}else{
+	$period = '';
+} ?>
+<h4 class="card-title">Data Verifikasi QR <?=$period?></h4>
 <table border="1">
 	<thead>
 		<tr style="background-color: #e9ecef">

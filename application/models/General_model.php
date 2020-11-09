@@ -8,7 +8,23 @@ class General_model extends CI_Model {
         date_default_timezone_set('Asia/Jakarta');
 	}
 
-    function get_data($table, $select, $filter='',$join_table='',$join_condition='',$limit='',$start='')
+    function count_data($table,$filter='',$like='',$or_like='')
+    {
+
+        $this->db->from($table);
+        
+        if($filter!='') {
+            $this->db->where($filter);
+        }
+
+        if($like!='') {
+            $this->db->where($like);
+        }
+
+        return $this->db->count_all_results();
+    }
+
+    function get_data($table, $select, $filter='',$join_table='',$join_condition='',$limit='',$start='',$like='',$or_like='')
     {
 
         $this->db->select($select, false);
@@ -23,6 +39,12 @@ class General_model extends CI_Model {
         // print_r($start);exit();
         if ($limit != '') {
            $this->db->limit($limit, $start);
+        }
+        if ($like != '') {
+           $this->db->like($like);
+        }
+        if ($or_like != '') {
+           $this->db->or_like($or_like);
         }
         $query = $this->db->get();
         // echo $this->db->last_query();exit();

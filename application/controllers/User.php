@@ -32,8 +32,25 @@ class User extends CI_Controller {
 
 	public function index()
 	{
+        $filter = '';
+        $like = '';
+        $or_like = '';
+        $param = $_GET;
+        // print_r($param);
+        // exit();
+
+        $filter = array(
+            'level != ' => '5',
+        );
+        if (array_key_exists('s', $param) && !empty($param['s'])) {
+            $like = array('username'=>$param['s']); 
+            $or_like = array('name'=>$param['s'],'no_hp'=>$param['s'],'email'=>$param['s']); 
+            $data['s'] = $param['s'];
+            
+        }
+
 		$config['base_url'] = site_url('user/index'); //site url
-        $config['total_rows'] = $this->db->where('level !=',5)->count_all('users'); //total row
+        $config['total_rows'] = $this->general_model->count_data('users',$filter,$like,$or_like); //total row
         $config['per_page'] = 10;  //show record per halaman
         $config["uri_segment"] = 3;  // uri parameter
         $choice = $config["total_rows"] / $config["per_page"];
@@ -64,10 +81,7 @@ class User extends CI_Controller {
  
         $data['pagination'] = $this->pagination->create_links();
 
-        $filter = array(
-            'level != ' => '5',
-        );
-        $users = $this->general_model->get_data('users','*',$filter,'','',$config["per_page"],$data['page']);
+        $users = $this->general_model->get_data('users','*',$filter,'','',$config["per_page"],$data['page'],$like,$or_like);
 
         $data['users'] = $users;
         
@@ -160,8 +174,25 @@ class User extends CI_Controller {
 
     public function aplikasi()
     {
+        $filter = '';
+        $like = '';
+        $or_like = '';
+        $param = $_GET;
+        // print_r($param);
+        // exit();
+
+        $filter = array(
+            'level' => '5',
+        );
+        if (array_key_exists('s', $param) && !empty($param['s'])) {
+            $like = array('username'=>$param['s']); 
+            $or_like = array('name'=>$param['s'],'no_hp'=>$param['s']); 
+            $data['s'] = $param['s'];
+            
+        }
+
         $config['base_url'] = site_url('user/aplikasi'); //site url
-        $config['total_rows'] = $this->db->where('level',5)->count_all('users'); //total row
+        $config['total_rows'] = $this->general_model->count_data('users',$filter,$like,$or_like);  //total row
         $config['per_page'] = 10;  //show record per halaman
         $config["uri_segment"] = 3;  // uri parameter
         $choice = $config["total_rows"] / $config["per_page"];
@@ -192,12 +223,9 @@ class User extends CI_Controller {
  
         $data['pagination'] = $this->pagination->create_links();
 
-        $filter = array(
-            'level' => '5',
-        );
         $join_table = 'spbu';
         $join_condition = 'users.spbu_id = spbu.id_spbu';
-        $users = $this->general_model->get_data('users','*',$filter,$join_table,$join_condition,$config["per_page"],$data['page']);
+        $users = $this->general_model->get_data('users','*',$filter,$join_table,$join_condition,$config["per_page"],$data['page'],$like,$or_like);
 
         $data['users'] = $users;
         

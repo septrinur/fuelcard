@@ -23,14 +23,34 @@
                         </div>
                 	<?php } ?>
                 </center>
-                <a href="<?=base_url('admin/export?id='.$id);?>"><button type="button" class="btn btn-success btn-rounded m-t-10 mb-2 float-right">Download</button></a>
+                <?php if (isset($periode)) {
+                	$data_periode = '&periode='.$periode;
+                }else{
+                	$data_periode = '';
+                } ?>
+                <a href="<?=base_url('admin/export?id='.$id.$data_periode);?>"><button type="button" class="btn btn-success btn-rounded m-t-10 mb-2 float-right">Download</button></a>
 				<div class="row">
 					<div class="col-sm-12 col-lg-3">
-						<form>
+						<?=form_open(site_url('admin/detail'),array('method'=>'get'));?>
+						<input type="hidden" name="id" value="<?=$id?>">
 	                        <div class="input-group mb-3">
-	                            <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+	                        	<label class="text-right control-label col-form-label">Periode</label> 
+	                        	<select class="form-control custom-select" name="periode">
+	                        		<option value="">Semua Periode</option>
+	                        		<?php foreach ($months as $month) { ?>
+	                        			<?php if (isset($periode)){ ?>
+	                        				<?php if ($periode == $month['m']){ ?>
+	                        					 <option value="<?=$month['m']?>" selected><?=bulan($month['m'])?></option>
+	                        				<?php }else{ ?>
+	                        					 <option value="<?=$month['m']?>"><?=bulan($month['m'])?></option>
+	                        				<?php } ?>
+	                        			<?php }else{ ?>
+	                        				 <option value="<?=$month['m']?>"><?=bulan($month['m'])?></option>
+	                        			<?php } ?>
+	                        		<?php } ?>
+	                        	</select>
 	                            <div class="input-group-append">
-	                                <button class="btn btn-success" type="button"><i class="ti-search"></i></button>
+	                                <button class="btn btn-success" type="submit"><i class="ti-search"></i></button>
 	                            </div>
 	                        </div>
 	                    </form>

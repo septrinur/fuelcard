@@ -101,15 +101,15 @@
                             </li><li class="sidebar-item"> <a class="sidebar-link" href="<?=base_url();?>user/index"><i class="icon-User"></i><span class="hide-menu">User</span></a>
                             </li>
                         <?php } ?>
-                        <?php if ($this->session->userdata('level') == '2') {  //maker QR?>
+                        <?php if ($this->session->userdata('level') == '1') {  //maker QR?>
                             </li><li class="sidebar-item"> <a class="sidebar-link" href="<?=base_url();?>admin/data"><i class="fas fa-qrcode"></i><span class="hide-menu">Data QR </span></a>
                             </li>
                         <?php } ?>
-                        <?php if ($this->session->userdata('level') == '3') {  //signer QR?>
+                        <?php if ($this->session->userdata('level') == '1') {  //signer QR?>
                             </li><li class="sidebar-item"> <a class="sidebar-link" href="<?=base_url();?>admin/approve_list"><i class="fas fa-qrcode"></i><span class="hide-menu">Approval Data QR </span></a>
                             </li>
                         <?php } ?>
-                        <?php if ($this->session->userdata('level') == '4') {  //admin app?>
+                        <?php if ($this->session->userdata('level') == '1') {  //admin app?>
                             <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-User"></i><span class="hide-menu">User Aplikasi</span></a>
                                 <ul aria-expanded="false" class="collapse  first-level">
                                     <li class="sidebar-item"><a href="<?=base_url();?>user/aplikasi" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> List User Aplikasi </span></a></li>

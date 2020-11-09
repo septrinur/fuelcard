@@ -26,11 +26,11 @@
                 <a href="<?=base_url();?>admin/input"><button type="button" class="btn btn-info btn-rounded m-t-10 mb-2 float-right">Input Data Baru</button></a>
 				<div class="row">
 					<div class="col-sm-12 col-lg-3">
-						<form>
+						<?=form_open(site_url('admin/approve_list'),array('method'=>'get'));?>
 	                        <div class="input-group mb-3">
-	                            <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+	                            <input type="text" name="s" class="form-control" placeholder="cari kode, nama, nopol, no brizzi" aria-label="" aria-describedby="basic-addon1" value="<?php echo (isset($s)) ? $s : ''; ?>">
 	                            <div class="input-group-append">
-	                                <button class="btn btn-success" type="button"><i class="ti-search"></i></button>
+	                                <button class="btn btn-success" type="submit"><i class="ti-search"></i></button>
 	                            </div>
 	                        </div>
 	                    </form>

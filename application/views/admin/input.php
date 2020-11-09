@@ -9,7 +9,7 @@
                     <center><?php if (!empty($error)) { ?>
                         <div class="alert alert-danger"><?php echo $error; ?></div>
                     <?php } ?></center>
-             <?=form_open(site_url('admin/input'),array('class'=>'form-horizontal needs-validation', 'novalidate'=>''));?>
+             <?=form_open_multipart(site_url('admin/input'),array('class'=>'form-horizontal needs-validation', 'novalidate'=>''));?>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-12 col-lg-6">
@@ -75,7 +75,8 @@
                             <div class="form-group row">
                                 <label for="dokumen" class="col-sm-3 text-right control-label col-form-label">Dokumen</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="dokumen" name="dokumen" value="<?php echo (isset($param)) ? $param['dokumen'] : ''; ?>">
+                                    <input type="file" class="form-control" id="dokumen" name="dokumen">
+                                    (File Format Harus PDF maximal ukuran 10mb)
                                 </div>
                             </div>
                         </div>
