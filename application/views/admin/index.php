@@ -1,4 +1,22 @@
 <div class="row">
+<!-- column -->
+	<div class="col-sm-12 col-lg-4">
+		<div class="card bg-light-info no-card-border">
+			<div class="card-body">
+				<div class="d-flex align-items-center">
+					<div class="m-r-10">
+						<span>Data QR Sudah Disetujui</span>
+						<h4><?=$dataqr?></h4>
+					</div>
+					<div class="ml-auto">
+						<a href="<?=base_url('admin/export_dataqr');?>"><button type="button" class="btn btn-success btn-rounded m-t-10 mb-2 float-right">Download</button></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+<div class="row">
 <!-- Column -->
 	<div class="col-lg-12">
 		<div class="card">
@@ -23,11 +41,43 @@
                         </div>
                 	<?php } ?>
                 </center>
-				<div class="row">
+				<!-- <div class="row">
 					<div class="col-sm-12 col-lg-3">
 						<?=form_open(site_url('admin/index'),array('method'=>'get'));?>
 	                        <div class="input-group mb-3">
 	                            <input type="text" name="s" class="form-control" placeholder="Cari Nama SPBU" aria-label="" aria-describedby="basic-addon1" value="<?php echo (isset($s)) ? $s : ''; ?>">
+	                            <div class="input-group-append">
+	                                <button class="btn btn-success" type="submit"><i class="ti-search"></i></button>
+	                            </div>
+	                        </div>
+	                    </form>
+	                </div>
+			    </div> -->
+			    <?php if (isset($periode)) {
+                	$data_periode = 'periode='.$periode;
+                }else{
+                	$data_periode = '';
+                } ?>
+                <a href="<?=base_url('admin/export_data?'.$data_periode);?>"><button type="button" class="btn btn-success btn-rounded m-t-10 mb-2 float-right">Download</button></a>
+				<div class="row">
+					<div class="col-sm-12 col-lg-3">
+						<?=form_open(site_url('admin/index'),array('method'=>'get'));?>
+	                        <div class="input-group mb-3">
+	                        	<label class="text-right control-label col-form-label">Periode</label> 
+	                        	<select class="form-control custom-select" name="periode">
+	                        		<option value="">Semua Periode</option>
+	                        		<?php foreach ($months as $month) { ?>
+	                        			<?php if (isset($periode)){ ?>
+	                        				<?php if ($periode == $month['m']){ ?>
+	                        					 <option value="<?=$month['m']?>" selected><?=bulan($month['m'])?></option>
+	                        				<?php }else{ ?>
+	                        					 <option value="<?=$month['m']?>"><?=bulan($month['m'])?></option>
+	                        				<?php } ?>
+	                        			<?php }else{ ?>
+	                        				 <option value="<?=$month['m']?>"><?=bulan($month['m'])?></option>
+	                        			<?php } ?>
+	                        		<?php } ?>
+	                        	</select>
 	                            <div class="input-group-append">
 	                                <button class="btn btn-success" type="submit"><i class="ti-search"></i></button>
 	                            </div>

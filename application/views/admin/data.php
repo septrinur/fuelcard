@@ -66,21 +66,35 @@
 								<td><?=$data->kuota_bbm?></td>
 								<td><?=$data->jenis_kendaraan?></td>
 								<td><?=$data->no_kartu?></td>
-								<td><?=$data->dokumen?></td>
+								<td><?php
+									if (!empty($data->dokumen) || $data->dokumen != null) { ?>
+										<a href="<?=base_url('uploads/data/').$data->dokumen?>" target="_blank"><?=$data->dokumen?></a>
+									<?php }else{?>	
+										-
+									<?php }?>	
+								</td>
 								<td>
 									<?php if ($data->status_approve == 1) { ?>
 										<label class="label label-success">Approved</label>
-									<?php }else{ ?>
-										<label class="label label-danger">Menunggu Approval</label>
+									<?php }elseif ($data->status_approve == 0){ ?>
+										<label class="label label-warning">Menunggu Approval</label>
+									<?php } else{ ?>
+										<label class="label label-danger">Rejected</label>
 									<?php } ?>
 								</td>
 								<td>
 									<a class="btn btn-success" href="<?=base_url('admin/update/'.$urisafe);?>">
 										<i class="ti-pencil-alt"></i> Edit                                        
 									</a>
-									<a class="btn btn-warning" href="<?=base_url('admin/print_qr/'.$urisafe);?>" target="_blank">
-										<i class="ti-printer"></i> Print                                        
-									</a>
+									<?php if ($data->status_approve == 1): ?>
+										<a class="btn btn-warning" href="<?=base_url('admin/print_qr/'.$urisafe);?>" target="_blank">
+											<i class="ti-printer"></i> Print                                        
+										</a>
+										<a class="btn btn-info" href="<?=base_url($data->qr_image);?>" target="_blank">
+											<i class="ti-download"></i> Download QR                                        
+										</a>
+									<?php endif ?>
+									
 								</td>
 							</tr>
 							<?php 

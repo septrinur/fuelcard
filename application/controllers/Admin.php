@@ -106,13 +106,17 @@ class Admin extends CI_Controller {
         $param = $_GET;
         // print_r($param);
         // exit();
-        if (array_key_exists('s', $param) && !empty($param['s'])) {
-            $like = array('nama_spbu'=>$param['s']); 
-            $data['s'] = $param['s'];
+        // if (array_key_exists('s', $param) && !empty($param['s'])) {
+        //     $like = array('nama_spbu'=>$param['s']); 
+        //     $data['s'] = $param['s'];
             
+        // }
+        if (array_key_exists('periode', $param) && !empty($param['periode'])) {
+            $filter = array('MONTH(trx_date)'=>$param['periode']); 
+            $data['periode'] = $param['periode'];
         }
 		$config['base_url'] = site_url('admin/index'); //site url
-        $config['total_rows'] =$this->admin_model->count_data_dashboard($filter,$like); //total row
+        $config['total_rows'] =$this->admin_model->count_data_dashboard('',$like); //total row
         // print_r($config);
         // exit();
         $config['per_page'] = 10;  //show record per halaman
@@ -146,8 +150,12 @@ class Admin extends CI_Controller {
         $data['pagination'] = $this->pagination->create_links();
 
         $spbu = $this->admin_model->get_data_dashboard($filter,$config["per_page"],$data['page'],$like);
+        $data['dataqr'] = $this->admin_model->count_data_qr(array('status_approve'=>1));
 
         $data['spbu'] = $spbu;
+
+        $sql = "SELECT DATE_FORMAT(trx_date, '%m') as m from verifikasi GROUP BY m";
+        $data['months'] = $this->general_model->get_query($sql);
         
         // echo "<pre>";
         // print_r($data);
@@ -217,18 +225,56 @@ class Admin extends CI_Controller {
         $this->load->admin('admin/detail', $data);
     }
 
-    public function export()
+    public function export_data()
     {
-        $id = $_GET['id'];
         $param = $_GET;
         // print_r($param);
         // exit();
         $data['name'] = "Data Verifikasi Fuelcard";
         $filter = '';
         if (array_key_exists('periode', $param) && !empty($param['periode'])) {
+            $filter = array('MONTH(trx_date)'=>$param['periode']); 
+            $data['periode'] = $param['periode'];
+            $data['name'] = "Data Verifikasi Fuelcard Periode ".$param['periode'];
+        }
+
+        $spbu = $this->admin_model->get_data_dashboard($filter);
+        $data['spbu'] = $spbu;
+        // echo "<pre>";
+        // print_r($data);
+        // exit();
+        $this->load->excel('admin/export_data', $data);
+    }
+
+    public function export_dataqr()
+    {
+        $param = $_GET;
+        // print_r($param);
+        // exit();
+        $data['name'] = "Data QR";
+        $filter = '';
+
+        $filter = array('status_approve'=>1); 
+        $dataqrs = $this->general_model->get_data('data_qr','*',$filter);
+        $data['dataqrs'] = $dataqrs;
+        // echo "<pre>";
+        // print_r($data);
+        // exit();
+        $this->load->excel('admin/export_data_qr', $data);
+    }
+
+    public function export()
+    {
+        $id = $_GET['id'];
+        $param = $_GET;
+        // print_r($param);
+        // exit();
+        $data['name'] = "Data Verifikasi Fuelcard Detail";
+        $filter = '';
+        if (array_key_exists('periode', $param) && !empty($param['periode'])) {
             $filter = array('id_spbu' => $id,'MONTH(trx_date)'=>$param['periode']); 
             $data['periode'] = $param['periode'];
-        $data['name'] = "Data Verifikasi Fuelcard Periode ".$param['periode'];
+        $data['name'] = "Data Verifikasi Fuelcard Detail Periode ".$param['periode'];
         }else{
             $filter = array('id_spbu' => $id); 
         }
@@ -311,7 +357,7 @@ class Admin extends CI_Controller {
 
             $param['no_pol'] = str_replace(' ', '', $param['no_pol']);
             $param['no_kartu'] = str_replace(' ', '', $param['no_kartu']);
-            $param['code'] = $param['no_pol'].strtotime($param['date_created']);
+            $param['code'] = $param['no_pol'].substr($param['no_kartu'], -4);
 
             if ($this->apifunct->is_exist_data('data_qr', array('no_pol'=>$param['no_pol']))) {
                 $data['error'] = "No Polisi sudah terdaftar";
@@ -349,7 +395,7 @@ class Admin extends CI_Controller {
 
                 $param['qr_image'] =  '/assets/images/qr/'.$image_name;
 
-                $config['upload_path']          = './uploads/dokumen/';
+                $config['upload_path']          = './uploads/data/';
                 $config['allowed_types']        = 'pdf';
                 $config['max_size']             = 10000;
 
@@ -550,7 +596,7 @@ class Admin extends CI_Controller {
 
         $data_qr = $this->general_model->update_data('data_qr', $con, $param);
         if ($data_qr) {
-            $this->session->set_flashdata('data_success', 'Berhasil update data');
+            $this->session->set_flashdata('data_success', 'Berhasil Approve data');
             redirect('admin/approve_list');
         }else{
             $this->session->set_flashdata('data_failed', 'Gagal Approve Data');
@@ -559,7 +605,30 @@ class Admin extends CI_Controller {
         // echo "<pre>";
         // print_r($data);
         // exit();
-        $this->load->admin('admin/update', $data);
+        $this->load->admin('admin/update');
+    }
+
+    public function reject($id){
+        $base64 = strtr($id, '.-~', '+/=');
+        $id = $this->encryption->decrypt($base64);
+        $con = array('id_qr' => $id);
+
+        $param['user_approved'] = $this->session->userdata('user_id');
+        $param['date_approved'] = date("Y-m-d H:i:s");
+        $param['status_approve'] = 2;
+
+        $data_qr = $this->general_model->update_data('data_qr', $con, $param);
+        if ($data_qr) {
+            $this->session->set_flashdata('data_success', 'Berhasil Reject data');
+            redirect('admin/approve_list');
+        }else{
+            $this->session->set_flashdata('data_failed', 'Gagal Reject Data');
+            redirect('admin/approve_list');
+        }
+        // echo "<pre>";
+        // print_r($data);
+        // exit();
+        $this->load->admin('admin/update');
     }
 
     public function print_qr($id){

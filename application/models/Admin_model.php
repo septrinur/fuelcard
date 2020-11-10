@@ -24,6 +24,18 @@ class Admin_model extends CI_Model {
         return $this->db->count_all_results();
     }
 
+    function count_data_qr($filter='')
+    {
+
+        $this->db->from('data_qr');
+        
+        if($filter!='') {
+            $this->db->where($filter);
+        }
+
+        return $this->db->count_all_results();
+    }
+
     function get_data_dashboard($filter='',$limit='',$start='',$like='')
     {
 

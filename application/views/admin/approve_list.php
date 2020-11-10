@@ -70,14 +70,20 @@
 								<td>
 									<?php if ($data->status_approve == 1) { ?>
 										<label class="label label-success">Approved</label>
-									<?php }else{ ?>
-										<label class="label label-danger">Menunggu Approval</label>
+									<?php }elseif ($data->status_approve == 0){ ?>
+										<label class="label label-warning">Menunggu Approval</label>
+									<?php } else{ ?>
+										<label class="label label-danger">Rejected</label>
 									<?php } ?>
 								</td>
 								<td>
 									<a class="btn btn-success" href="<?=base_url('admin/approve/'.$urisafe);?>" onclick="return confirm('Apakah Anda yakin approve data ini?')">
 											<i class="ti-check-box"></i> 
 											Approve
+										</a>
+									<a class="btn btn-danger" href="<?=base_url('admin/reject/'.$urisafe);?>" onclick="return confirm('Apakah Anda yakin reject data ini?')">
+											<i class="ti-check-box"></i> 
+											Reject
 										</a>
 								</td>
 							</tr>

@@ -53,7 +53,28 @@
                     <a class="navbar-brand" href="<?=base_url();?>product">
                         <!-- Logo text -->
                         <span class="logo-text">
-                            <b>FuelCard QR Admin</b>
+                            <b>FuelCard QR 
+                                <?php 
+                                switch ($this->session->userdata('level')) {
+                                    case '1':
+                                        echo "Super Admin";
+                                        break;
+                                    case '2':
+                                        echo "Admin QR";
+                                        break;
+                                    case '3':
+                                        echo "Maker QR";
+                                        break;
+                                    case '4':
+                                        echo "Admin Aplikasi";
+                                        break;
+                                    
+                                    default:
+                                        echo "";
+                                        break;
+                                }
+                                 ?>
+                            </b>
                         </span>
                     </a>
                     <!-- ============================================================== -->
@@ -97,15 +118,15 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="sidebar-item"> <a class="sidebar-link" href="<?=base_url();?>admin/index"><i class="icon-Car-Wheel"></i><span class="hide-menu">Dashboard </span></a>
-                        <?php if ($this->session->userdata('level') == '1') {  //maker QR?>
+                        <?php if ($this->session->userdata('level') == '1') {  //Super Admin?>
                             </li><li class="sidebar-item"> <a class="sidebar-link" href="<?=base_url();?>user/index"><i class="icon-User"></i><span class="hide-menu">User</span></a>
                             </li>
                         <?php } ?>
-                        <?php if ($this->session->userdata('level') == '2') {  //maker QR?>
+                        <?php if ($this->session->userdata('level') == '3') {  //maker QR?>
                             </li><li class="sidebar-item"> <a class="sidebar-link" href="<?=base_url();?>admin/data"><i class="fas fa-qrcode"></i><span class="hide-menu">Data QR </span></a>
                             </li>
                         <?php } ?>
-                        <?php if ($this->session->userdata('level') == '3') {  //signer QR?>
+                        <?php if ($this->session->userdata('level') == '2') {  //signer QR?>
                             </li><li class="sidebar-item"> <a class="sidebar-link" href="<?=base_url();?>admin/approve_list"><i class="fas fa-qrcode"></i><span class="hide-menu">Approval Data QR </span></a>
                             </li>
                         <?php } ?>
