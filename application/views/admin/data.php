@@ -40,15 +40,15 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th>Kode</th>
-								<th>Nama Pemilik</th>
-								<th>No Polisi</th>
-								<th>Kuota BBM</th>
-								<th>Jenis Kendaraan</th>
-								<th>No Brizzi</th>
-								<th>Dokumen</th>
-								<th>Status</th>
-								<th>Aksi</th>
+								<th scope="col">Kode</th>
+								<th scope="col">Nama Pemilik</th>
+								<th scope="col">No Polisi</th>
+								<th scope="col">Kuota BBM</th>
+								<th scope="col">Jenis Kendaraan</th>
+								<th scope="col">No Brizzi</th>
+								<th scope="col">Dokumen</th>
+								<th scope="col">Status</th>
+								<th scope="col">Aksi</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -83,17 +83,29 @@
 									<?php } ?>
 								</td>
 								<td>
-									<a class="btn btn-success" href="<?=base_url('admin/update/'.$urisafe);?>">
-										<i class="ti-pencil-alt"></i> Edit                                        
-									</a>
-									<?php if ($data->status_approve == 1): ?>
-										<a class="btn btn-warning" href="<?=base_url('admin/print_qr/'.$urisafe);?>" target="_blank">
-											<i class="ti-printer"></i> Print                                        
-										</a>
-										<a class="btn btn-info" href="<?=base_url($data->qr_image);?>" target="_blank">
-											<i class="ti-download"></i> Download QR                                        
-										</a>
-									<?php endif ?>
+									<table style="border: 0">
+										<tr>
+											<td style="border-top: 0; padding: 0;">
+												<a class="btn btn-success" href="<?=base_url('admin/update/'.$urisafe);?>" data-toggle="tooltip" title="Edit">
+													<i class="ti-pencil-alt"></i>                                        
+												</a>
+											</td>
+											<?php if ($data->status_approve == 1): ?>
+												<td style="border-top: 0; padding: 0;">
+													<a class="btn btn-warning" href="<?=base_url('admin/print_qr/'.$urisafe);?>" target="_blank" data-toggle="tooltip" title="Print">
+														<i class="ti-printer"></i>                                        
+													</a>
+												</td>
+												<td style="border-top: 0; padding: 0;">
+													<a class="btn btn-info" href="<?=base_url($data->qr_image);?>" target="_blank"  data-toggle="tooltip" title="Download">
+														<i class="ti-download"></i>                                      
+													</a>
+												</td>
+											<?php endif ?>
+										</tr>
+									</table>
+									
+									
 									
 								</td>
 							</tr>

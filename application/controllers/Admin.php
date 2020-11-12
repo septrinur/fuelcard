@@ -357,7 +357,7 @@ class Admin extends CI_Controller {
 
             $param['no_pol'] = str_replace(' ', '', $param['no_pol']);
             $param['no_kartu'] = str_replace(' ', '', $param['no_kartu']);
-            $param['code'] = $param['no_pol'].substr($param['no_kartu'], -4);
+            $param['code'] = $param['no_pol'].substr($param['no_kartu'], -6);
 
             if ($this->apifunct->is_exist_data('data_qr', array('no_pol'=>$param['no_pol']))) {
                 $data['error'] = "No Polisi sudah terdaftar";

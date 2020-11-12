@@ -66,7 +66,13 @@
 								<td><?=$data->kuota_bbm?></td>
 								<td><?=$data->jenis_kendaraan?></td>
 								<td><?=$data->no_kartu?></td>
-								<td><?=$data->dokumen?></td>
+								<td><?php
+									if (!empty($data->dokumen) || $data->dokumen != null) { ?>
+										<a href="<?=base_url('uploads/data/').$data->dokumen?>" target="_blank"><?=$data->dokumen?></a>
+									<?php }else{?>	
+										-
+									<?php }?>	
+								</td>
 								<td>
 									<?php if ($data->status_approve == 1) { ?>
 										<label class="label label-success">Approved</label>
@@ -82,7 +88,7 @@
 											Approve
 										</a>
 									<a class="btn btn-danger" href="<?=base_url('admin/reject/'.$urisafe);?>" onclick="return confirm('Apakah Anda yakin reject data ini?')">
-											<i class="ti-check-box"></i> 
+											<i class="ti-close"></i> 
 											Reject
 										</a>
 								</td>
