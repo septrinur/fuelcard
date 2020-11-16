@@ -55,6 +55,8 @@ class Admin_model extends CI_Model {
         if ($limit != '') {
            $this->db->limit($limit, $start);
         }
+
+        $this->db->group_by("spbu.id_spbu");
         $query = $this->db->get();
         // echo $this->db->last_query();exit();
         return $query->result();
