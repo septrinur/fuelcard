@@ -355,10 +355,14 @@ class Admin extends CI_Controller {
             $param['date_created'] = date("Y-m-d H:i:s");
             $param['status_approve'] = 0;
 
-            $param['no_pol'] = str_replace(' ', '', $param['no_pol']);
+            $param['no_pol'] = strtoupper(str_replace(' ', '', $param['no_pol']));
             $param['no_kartu'] = str_replace(' ', '', $param['no_kartu']);
-            $param['code'] = $param['no_pol'].substr($param['no_kartu'], -6);
-
+            $str = $param['no_pol'] ;
+            $arr = preg_match_all('/([0-9]+|[a-zA-Z]+)/',$str,$matches);                                                                                                            
+            $param['code'] =$matches[0][0].substr($matches[0][1],0, 2).substr($param['no_kartu'], -6);
+                                        
+            // echo "<pre>";           
+            // print_r($param);exit();
             if ($this->apifunct->is_exist_data('data_qr', array('no_pol'=>$param['no_pol']))) {
                 $data['error'] = "No Polisi sudah terdaftar";
                 $data['param'] = $param;

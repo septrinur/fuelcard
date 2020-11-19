@@ -16,7 +16,10 @@
     body { margin: 1cm; }
     </style>
 </head>
-<body onload="window.print()" style="width: 200px; height: 220px; overflow: hidden; border: solid;">
+<body onload="window.print()" style="width: 240px; height: 240px; overflow: hidden; border: solid;">
 	<center><span style="margin-top: 10px;"><?=$param['code']?></span></center>
-	<img src="<?=base_url().$param['qr_image'];?>" alt="Italian Trulli" width="200" height="200">
+    <center>
+	   <img src="<?=base_url().$param['qr_image'];?>" alt="Italian Trulli" width="200" height="200">
+    </center>
+    <center><span style="margin-top: 10px;">Fuelcard QR Verification</span></center>
 </body>
