@@ -5,6 +5,7 @@
 		<tr style="background-color: #e9ecef">
 			<th>Kode</th>
 			<th>Nama Pemilik</th>
+			<th>Nama Perusahaan</th>
 			<th>No Polisi</th>
 			<th>Kuota BBM</th>
 			<th>Jenis Kendaraan</th>
@@ -21,6 +22,7 @@
 		<tr>
 			<td><?=$data->code?></td>
 			<td><?=$data->nama_pemilik?></td>
+			<td><?=$data->nama_perusahaan?></td>
 			<td><?=$data->no_pol?></td>
 			<td><?=$data->kuota_bbm?></td>
 			<td><?=$data->jenis_kendaraan?></td>
