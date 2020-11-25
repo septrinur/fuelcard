@@ -42,6 +42,7 @@
 							<tr>
 								<th scope="col">Kode</th>
 								<th scope="col">Nama Pemilik</th>
+								<th scope="col">Nama Perusahaan</th>
 								<th scope="col">No Polisi</th>
 								<th scope="col">Kuota BBM</th>
 								<th scope="col">Jenis Kendaraan</th>
@@ -62,6 +63,7 @@
 							<tr>
 								<td><?=$data->code?></td>
 								<td><?=$data->nama_pemilik?></td>
+								<td><?=$data->nama_perusahaan?></td>
 								<td><?=$data->no_pol?></td>
 								<td><?=$data->kuota_bbm?></td>
 								<td><?=$data->jenis_kendaraan?></td>

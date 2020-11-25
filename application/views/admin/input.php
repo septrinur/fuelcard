@@ -38,6 +38,17 @@
                     <div class="row">
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group row">
+                                <label for="kuota_bbm" class="col-sm-3 text-right control-label col-form-label">Nama Perusahaan</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="nama_perusahaan" name="nama_perusahaan" value="<?php echo (isset($param)) ? $param['nama_perusahaan'] : ''; ?>" required>
+                                    <div class="invalid-feedback">
+                                      Tidak boleh kosong.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group row">
                                 <label for="kuota_bbm" class="col-sm-3 text-right control-label col-form-label">Kuota BBM</label>
                                 <div class="col-sm-9">
                                     <input type="number" class="form-control" id="kuota_bbm" name="kuota_bbm" value="<?php echo (isset($param)) ? $param['kuota_bbm'] : ''; ?>" required>
@@ -47,6 +58,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group row">
                                 <label for="jenis_kendaraan" class="col-sm-3 text-right control-label col-form-label">Jenis Kendaraan</label>
@@ -58,19 +71,19 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group row">
                                 <label for="no_kartu" class="col-sm-3 text-right control-label col-form-label">No Kartu</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="no_kartu" name="no_kartu" value="<?php echo (isset($param)) ? $param['no_kartu'] : ''; ?>" required>
+                                    <input type="number" class="form-control" id="no_kartu" name="no_kartu" value="<?php echo (isset($param)) ? $param['no_kartu'] : ''; ?>" onKeyPress="if(this.value.length==16) return false;" required>
                                     <div class="invalid-feedback">
                                       Tidak boleh kosong.
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-12 col-lg-6">
                             <div class="form-group row">
                                 <label for="dokumen" class="col-sm-3 text-right control-label col-form-label">Dokumen</label>

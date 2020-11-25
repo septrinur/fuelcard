@@ -448,6 +448,7 @@ class Admin extends CI_Controller {
 
                 $con = array('id_qr' => $param['id_qr']);
                 $param_update['nama_pemilik'] = $param['nama_pemilik'];
+                $param_update['nama_perusahaan'] = $param['nama_perusahaan'];
                 $param_update['kuota_bbm'] = $param['kuota_bbm'];
                 $param_update['jenis_kendaraan'] = $param['jenis_kendaraan'];
                 $param_update['no_kartu'] = str_replace(' ', '', $param['no_kartu']);
