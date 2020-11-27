@@ -122,6 +122,11 @@ class User extends CI_Controller {
            
 
         }
+        if ($this->apifunct->check_level(2)) {
+            $data['adminqr'] = 1;
+        }else{
+             $data['adminqr'] = 0;
+        }
         // echo "<pre>";
         // print_r($data);
         // exit();
@@ -153,6 +158,11 @@ class User extends CI_Controller {
         $id = $this->encryption->decrypt($base64);
         $filter['id_user'] = $id;
         $data['param'] = json_decode(json_encode($this->users_model->get_users($filter)[0]), true);
+        if ($this->apifunct->check_level(2)) {
+            $data['adminqr'] = 1;
+        }else{
+             $data['adminqr'] = 0;
+        }
         // echo "<pre>";
         // print_r($data);
         // exit();

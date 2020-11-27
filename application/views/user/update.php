@@ -104,29 +104,39 @@
                                         <?php if (isset($param)) { 
                                             if ($param['level'] == '2') { ?>
                                             <option value="1">Super Admin</option>
-                                            <option value="2" selected>Admin QR</option>
+                                            <?php if ($adminqr == 0) { ?>
+                                                <option value="2" selected>Admin QR</option>
+                                            <?php } ?>
                                             <option value="3">Maker QR</option>
                                             <option value="4">Admin Aplikasi</option>
                                         <?php }elseif ($param['level'] == '3') { ?>
                                             <option value="1">Super Admin</option>
-                                            <option value="2">Admin QR</option>
+                                            <?php if ($adminqr == 0) { ?>
+                                                <option value="2">Admin QR</option>
+                                            <?php } ?>
                                             <option value="3" selected>Maker QR</option>
                                             <option value="4">Admin Aplikasi</option>   
                                         <?php }elseif ($param['level'] == '4') { ?>
                                             <option value="1">Super Admin</option>
-                                            <option value="2">Admin QR</option>
+                                            <?php if ($adminqr == 0) { ?>
+                                                <option value="2">Admin QR</option>
+                                            <?php } ?>
                                             <option value="3">Maker QR</option>
                                             <option value="4" selected>Admin Aplikasi</option>   
                                         <?php } elseif ($param['level'] == '1') { ?>
                                             <option value="1" selected>Super Admin</option>
-                                            <option value="2">Admin QR</option>
+                                            <?php if ($adminqr == 0) { ?>
+                                                <option value="2">Admin QR</option>
+                                            <?php } ?>
                                             <option value="3">Maker QR</option>
                                             <option value="4">Admin Aplikasi</option>   
                                         <?php } 
 
 
                                         }else{ ?>
-                                            <option value="2">Admin QR</option>
+                                            <?php if ($adminqr == 0) { ?>
+                                                <option value="2">Admin QR</option>
+                                            <?php } ?>
                                             <option value="3">Maker QR</option>
                                             <option value="4">Admin Aplikasi</option>
                                         <?php } ?>

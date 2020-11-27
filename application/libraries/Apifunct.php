@@ -28,6 +28,15 @@ class Apifunct {
         }
     }
 
+    function check_level($level){
+        $user = $this->CI->users_model->get_users(array('level' => $level));
+        if (empty($user) || $user == null) {
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     function get_user_id($username){
         $user = $this->CI->users_model->get_users(array('username' => $username))[0];
         return $user->id_user;
