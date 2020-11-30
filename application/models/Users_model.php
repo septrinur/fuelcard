@@ -247,14 +247,14 @@ class Users_model extends CI_Model {
                         'no_hp'     => $param['no_hp'],
                         'spbu_id'   => $param['spbu_id'],
                         'status'    => $param['status'],
-                        'login_attempt'    => $param['login_attempt']));
+                        'login_attempt'    => $param['login_attempt']);
         }else{
            $data = array(
                         'name'      => $param['name'],
                         'no_hp'     => $param['no_hp'],
                         'spbu_id'   => $param['spbu_id'],
                         'status'    => $param['status'],
-                        'login_attempt'    => $param['login_attempt']));
+                        'login_attempt'    => $param['login_attempt']);
         }
         
 
