@@ -238,20 +238,23 @@ class Users_model extends CI_Model {
 
     function edit_users($param){
         $this->db->trans_begin();
-
+        
+        $param['login_attempt'] = 0;
         if ($param['password'] != '' || !empty($param['password'])) {
             $data = array(
                         'password'  => md5($param['password']),
                         'name'      => $param['name'],
                         'no_hp'     => $param['no_hp'],
                         'spbu_id'   => $param['spbu_id'],
-                        'status'    => $param['status']);
+                        'status'    => $param['status'],
+                        'login_attempt'    => $param['login_attempt']));
         }else{
            $data = array(
                         'name'      => $param['name'],
                         'no_hp'     => $param['no_hp'],
                         'spbu_id'   => $param['spbu_id'],
-                        'status'    => $param['status']);
+                        'status'    => $param['status'],
+                        'login_attempt'    => $param['login_attempt']));
         }
         
 
